@@ -1,15 +1,10 @@
 FROM fusuf/whatsasena:latest
 
-RUN git clone $GITHUB_REPO_URL /root/WhatsAsena
-WORKDIR /root/WhatsAsena/
+RUN https://github.com/imashnidusha/WhatsAsena.git /root/WhatsAsenaDuplicated
+WORKDIR /root/WhatsAsenaDuplicated/
+ENV REPO="https://imashnidusha/WhatsAsena"
 ENV TZ=Europe/Istanbul
 RUN npm install supervisor -g
-RUN apk --no-cache --virtual build-dependencies add \
-    python \
-    make \
-    g++ \
-    && npm install \
-    && apk del build-dependencies
-RUN npm install
+RUN yarn install --no-audit
 
-CMD ["node", "bot.js"]
+CMD ["run.sh"]
